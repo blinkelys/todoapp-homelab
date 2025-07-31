@@ -44,6 +44,7 @@
 
 <script>
 import axios from "axios";
+const apiBase = import.meta.env.VITE_API_BASE;
 
 export default {
   data() {
@@ -55,16 +56,13 @@ export default {
   methods: {
     async submitBoard() {
       try {
-        await axios.post("/api/boards", {
+        await axios.post(`${apiBase}/api/boards`, {
           name: this.boardName
         });
-
         this.boardName = "";
         this.showModal = false;
-        // Optionally refresh board list or give feedback here
       } catch (error) {
         console.error("Error creating board:", error);
-        // Optional: show an error message to the user
       }
     }
   }

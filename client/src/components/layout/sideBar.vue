@@ -3,7 +3,7 @@
         <div class="flex-grow">
             <h2 class="text-xl font-semibold mb-4">Boards</h2>
             <ul>
-              <li v-for="board in boards" :key="board.id" class="mb-2">
+              <li v-for="board in boards" :key="board.orderId" class="mb-2">
                 <a href="#" class="hover:underline">{{ board.name }}</a>
               </li>
             </ul>
@@ -16,6 +16,8 @@
 
 <script>
 import addBoard from '../utility/addBoard.vue';
+import axios from 'axios';
+const apiBase = import.meta.env.VITE_API_BASE;
 
 export default {
   components: {
@@ -24,10 +26,21 @@ export default {
   data() {
     return {
       boards: [
-        { id: 1, name: 'Board 1' },
-        { id: 2, name: 'Board 2' },
-        { id: 3, name: 'Board 3' }
+
       ]
+    }
+  },
+  async created() {
+    await this.fetchBoards();
+  },
+  methods: {
+    async fetchBoards() {
+      try {
+        const response = await axios.get(`${apiBase}/api/boards`);
+        this.boards = response.data;
+      } catch (error) {
+        console.error("Error fetching boards:", error);
+      }
     }
   }
 }

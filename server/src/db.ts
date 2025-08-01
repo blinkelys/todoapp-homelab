@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const dbUser = process.env.DB_USER || "root";
+    const dbUser = process.env.DB_USER;
     const dbPassword = process.env.DB_PASSWORD || "example";
-    const dbPort = process.env.DB_PORT || "27017";
-    const dbName = process.env.DB_NAME || "inventory";
-    const dbHost = process.env.DB_HOST || "localhost"; // optional, default to localhost
+    const dbPort = process.env.DB_PORT;
+    const dbName = process.env.DB_NAME;
+    const dbHost = process.env.DB_HOST;
 
     const mongoUri = `mongodb://${dbUser}:${encodeURIComponent(dbPassword)}@${dbHost}:${dbPort}/${dbName}?authSource=admin`;
 
